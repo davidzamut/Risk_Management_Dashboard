@@ -1,0 +1,377 @@
+table application_data
+	lineageTag: 7217ae0f-7023-4626-a7f4-f0600d9909fa
+
+	measure CreditAmountTargetTrue = CALCULATE(COUNT(application_data[Amount $ Credits]),application_data[TARGET]="True")
+		formatString: 0
+		lineageTag: 5f9943d4-6e8b-4639-bce3-461b3c6b4678
+
+	measure 'Amount Denied Rate' =
+			
+			VAR TotalCreditos = COUNTROWS('application_data')
+			VAR CreditosDefault = CALCULATE(COUNTROWS('application_data'), 'application_data'[TARGET] = 1)
+			
+			RETURN
+			DIVIDE(CreditosDefault, TotalCreditos, 0)
+		lineageTag: 96292dd1-ce50-484a-a758-57caae53e344
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "FilteredMeasure"
+				}
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Denied count rate' =
+			
+			VAR MontoEnMora = CALCULATE(SUM('application_data'[Amount $ Credits]), 'application_data'[TARGET] = 1)
+			VAR MontoTotalPrestado = SUM('application_data'[Amount $ Credits])
+			
+			RETURN
+			DIVIDE(MontoEnMora, MontoTotalPrestado, 0)
+		lineageTag: 24902a0b-79e7-4e6c-b5c6-3393d0829e38
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% of desired exposure' = PERCENT
+		lineageTag: 524d46a8-ed84-45f1-ba57-c646ca21e698
+
+	measure 'Simulated default Exposure' =
+			
+			VAR TotalDefault = CALCULATE(SUM('application_data'[AMT_ANNUITY.1]), 'application_data'[TARGET_BOOLEAN] = 1)
+			VAR PorcentajeExposicion = 'Desired Exposure to default'[Desired Exposure to default Value]
+			
+			RETURN
+			TotalDefault * PorcentajeExposicion
+		formatString: 0
+		lineageTag: 9b93090e-b0c6-4174-b596-117167581397
+
+	column 'Application Id'
+		dataType: string
+		lineageTag: 95ce2fb6-f1ca-4c7f-b787-0f61de05d147
+		summarizeBy: none
+		sourceColumn: Application Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column TARGET
+		dataType: int64
+		formatString: 0
+		lineageTag: d6a6e975-e7a8-48fe-9ca9-b06be2c75856
+		summarizeBy: sum
+		sourceColumn: TARGET
+
+		annotation SummarizationSetBy = Automatic
+
+	column NAME_CONTRACT_TYPE
+		dataType: string
+		lineageTag: 37400ad0-2c4c-47d2-ac35-b847cb3748c0
+		summarizeBy: none
+		sourceColumn: NAME_CONTRACT_TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column CODE_GENDER
+		dataType: string
+		lineageTag: e6da64fe-4ced-43a3-b5bb-b6a6770690a5
+		summarizeBy: none
+		sourceColumn: CODE_GENDER
+
+		annotation SummarizationSetBy = Automatic
+
+	column FLAG_OWN_CAR
+		dataType: string
+		lineageTag: c60a5649-7941-4359-99df-5aa9faf9045d
+		summarizeBy: none
+		sourceColumn: FLAG_OWN_CAR
+
+		annotation SummarizationSetBy = Automatic
+
+	column FLAG_OWN_REALTY
+		dataType: string
+		lineageTag: 3bcacd92-39e1-4a22-a15a-9ab6c98974af
+		summarizeBy: none
+		sourceColumn: FLAG_OWN_REALTY
+
+		annotation SummarizationSetBy = Automatic
+
+	column CNT_CHILDREN
+		dataType: int64
+		formatString: 0
+		lineageTag: e666bbfb-b8b0-4f03-b1af-f09ebe3cf795
+		summarizeBy: sum
+		sourceColumn: CNT_CHILDREN
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AMT_INCOME_TOTAL.1'
+		dataType: decimal
+		formatString: \$\ #,0.###############;-\$\ #,0.###############;\$\ #,0.###############
+		lineageTag: 779205bb-5c42-4374-9d0d-760e38080df3
+		summarizeBy: sum
+		sourceColumn: AMT_INCOME_TOTAL.1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-CO"}
+
+	column 'Amount $ Credits'
+		dataType: decimal
+		formatString: \$\ #,0.###############;-\$\ #,0.###############;\$\ #,0.###############
+		lineageTag: 9e30e189-5a45-4db6-a330-2a2a44387e6d
+		summarizeBy: sum
+		sourceColumn: Amount $ Credits
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-CO"}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"application_data","TableItemName":"AMT_CREDIT.1 (bins)","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column 'AMT_ANNUITY.1'
+		dataType: decimal
+		formatString: \$\ #,0.###############;-\$\ #,0.###############;\$\ #,0.###############
+		lineageTag: 30f79ba7-0dec-4b07-bef3-a848bb030a49
+		summarizeBy: sum
+		sourceColumn: AMT_ANNUITY.1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-CO"}
+
+	column 'AMT_GOODS_PRICE.1'
+		dataType: decimal
+		formatString: \$\ #,0.###############;-\$\ #,0.###############;\$\ #,0.###############
+		lineageTag: 811735e5-6e00-49d0-88ff-fc16515d78ad
+		summarizeBy: sum
+		sourceColumn: AMT_GOODS_PRICE.1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-CO"}
+
+	column NAME_TYPE_SUITE
+		dataType: string
+		lineageTag: bbfa8f4d-c7f6-46e6-a321-30b9f73370f1
+		summarizeBy: none
+		sourceColumn: NAME_TYPE_SUITE
+
+		annotation SummarizationSetBy = Automatic
+
+	column NAME_INCOME_TYPE
+		dataType: string
+		lineageTag: 6377c234-3fe8-4f89-9226-596d0a854020
+		summarizeBy: none
+		sourceColumn: NAME_INCOME_TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column NAME_EDUCATION_TYPE
+		dataType: string
+		lineageTag: 6648f86f-17fb-4f3b-9993-cbe8cd3dbf41
+		summarizeBy: none
+		sourceColumn: NAME_EDUCATION_TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column NAME_FAMILY_STATUS
+		dataType: string
+		lineageTag: d6b2a39f-69e4-43a7-b4bf-03d8a30a0265
+		summarizeBy: none
+		sourceColumn: NAME_FAMILY_STATUS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NAME_HOUSING_TYPE
+		dataType: string
+		lineageTag: bfb4ba5e-2865-49e3-b763-68e71b262270
+		summarizeBy: none
+		sourceColumn: NAME_HOUSING_TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column TARGET_BOOLEAN_1 = application_data[TARGET]
+		formatString: 0
+		lineageTag: a44f668a-d40a-44d8-abed-39672aa8adfb
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column TARGET_BOOLEAN
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: dc4c634f-7be9-46d9-b160-32de30f8b603
+		summarizeBy: none
+		sourceColumn: TARGET_BOOLEAN
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'TARGET BINARY'
+		dataType: string
+		lineageTag: d04f3224-f076-46a6-8ffa-5e35f1c77862
+		summarizeBy: none
+		sourceColumn: TARGET BINARY
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AMT_CREDIT.1 (bins)' =
+			VAR __Count = 7
+			
+			VAR __Min = MIN('application_data'[Amount $ Credits])
+			
+			VAR __Max = MAX('application_data'[Amount $ Credits])
+			
+			VAR __Difference = (__Max - __Min)
+			
+			VAR __Size = IF(__Difference > 0, __Difference / __Count, 1)
+			
+			VAR __BinNumber = INT(('application_data'[Amount $ Credits] - __Min) / __Size)
+			
+			RETURN
+				IF(
+					ISBLANK('application_data'[Amount $ Credits]),
+					BLANK(),
+					__Min + (MIN(__BinNumber, __Count - 1) * __Size)
+				)
+		dataType: double
+		formatString: \$\ #,0.###############;-\$\ #,0.###############;\$\ #,0.###############
+		lineageTag: cb5b8088-04a9-493d-a7e4-4133987bc6a4
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "version": 0,
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "application_data"
+				          }
+				        },
+				        "Property": "Amount $ Credits"
+				      }
+				    }
+				  ]
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"a","Entity":"application_data"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"a"}},"Property":"Amount $ Credits"}}],"BinItem":{"Expression":{"Member":{"Expression":{"Discretize":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"a"}},"Property":"Amount $ Credits"}},"Count":7}},"Member":"Min"}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-CO"}
+
+	column ANNUITY_INCOME_RATIO = DIVIDE('application_data'[AMT_ANNUITY.1], 'application_data'[AMT_INCOME_TOTAL.1], 0)
+		lineageTag: 3e928640-9a42-434f-86f6-01e4572d4d80
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column years_To_cover_loan_with_income = DIVIDE('application_data'[Amount $ Credits],'application_data'[AMT_INCOME_TOTAL.1],0)
+		lineageTag: 6f6de3cd-2065-4923-9355-f01d764a3c76
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Goods_To_Credit_amount_ratio = DIVIDE('application_data'[AMT_GOODS_PRICE.1],'application_data'[Amount $ Credits])
+		lineageTag: 0fea72c6-ed79-465d-bcfa-6d9354dd00a5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Risk_Flag_Income = ```
+			
+			IF(application_data[years_To_cover_loan_with_income] > 15, 1, 0)
+			    
+			```
+		formatString: 0
+		lineageTag: 2f0c5e6e-4864-4425-83b1-cd1ed8fbf382
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Risk_Flag_Goods = IF(application_data[Goods_To_Credit_amount_ratio] < 1, 1, 0)
+		formatString: 0
+		lineageTag: b969386f-f2b5-48d2-9e6c-b2fe621d3ec4
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Risk_Flag_General = ```
+			
+			IF(
+			    AND(
+			        application_data[Risk_Flag_Goods] = 1, application_data[Risk_Flag_Income] = 1),"High Risk", 
+			        IF(
+			            OR(application_data[Risk_Flag_Goods] = 1, application_data[Risk_Flag_Income] = 1), "Medium Risk",
+			            IF(
+			                AND(application_data[Risk_Flag_Goods] = 0, application_data[Risk_Flag_Income] = 0), "Low Risk", "Error"
+			            )))
+			```
+		lineageTag: a218afa0-b97e-4971-bebe-9126888c8743
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Oportunity_Loan =
+			
+			IF( application_data[TARGET BINARY] = "1", "Not Applicable",
+			    IF(
+			        AND(application_data[Risk_Flag_General] = "Low Risk" , application_data[ANNUITY_INCOME_RATIO] < 0.05), "Opportunity", "No Oportunity"))
+		lineageTag: cad53576-9a2c-46ad-a0df-fc0882a01ad9
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition application_data = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\david\OneDrive\文档\DataScience\ProyectoPowerBi Finanzas\application_data.xlsx"), null, true),
+				    application_data_Sheet = Source{[Item="application_data",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(application_data_Sheet, [PromoteAllScalars=true]),
+				    #"Removed Columns" = Table.RemoveColumns(#"Promoted Headers",{"Column17", "Column18", "Column19", "Column20", "Column21", "Column22", "Column23", "Column24", "Column25", "Column26", "Column27", "Column28", "Column29", "Column30", "Column31", "Column32", "Column33", "Column34", "Column35", "Column36", "Column37", "Column38", "Column39", "Column40", "Column41", "Column42", "Column43"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"SK_ID_CURR", type text}, {"TARGET", type logical}, {"NAME_CONTRACT_TYPE", type text}, {"CODE_GENDER", type text}, {"FLAG_OWN_CAR", type text}, {"FLAG_OWN_REALTY", type text}, {"CNT_CHILDREN", Int64.Type}}),
+				    #"Split Column by Delimiter" = Table.SplitColumn(Table.TransformColumnTypes(#"Changed Type", {{"AMT_INCOME_TOTAL", type text}}, "es-CO"), "AMT_INCOME_TOTAL", Splitter.SplitTextByEachDelimiter({"."}, QuoteStyle.Csv, true), {"AMT_INCOME_TOTAL.1", "AMT_INCOME_TOTAL.2"}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Split Column by Delimiter",{"AMT_INCOME_TOTAL.2"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Removed Columns1",{{"AMT_INCOME_TOTAL.1", Currency.Type}}),
+				    #"Split Column by Delimiter1" = Table.SplitColumn(#"Changed Type1", "AMT_CREDIT", Splitter.SplitTextByEachDelimiter({"."}, QuoteStyle.Csv, true), {"AMT_CREDIT.1", "AMT_CREDIT.2"}),
+				    #"Removed Columns2" = Table.RemoveColumns(#"Split Column by Delimiter1",{"AMT_CREDIT.2"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Removed Columns2",{{"AMT_CREDIT.1", Currency.Type}}),
+				    #"Split Column by Delimiter2" = Table.SplitColumn(#"Changed Type2", "AMT_ANNUITY", Splitter.SplitTextByEachDelimiter({"."}, QuoteStyle.Csv, true), {"AMT_ANNUITY.1", "AMT_ANNUITY.2"}),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Split Column by Delimiter2",{{"AMT_ANNUITY.1", Currency.Type}}),
+				    #"Removed Columns3" = Table.RemoveColumns(#"Changed Type3",{"AMT_ANNUITY.2"}),
+				    #"Split Column by Delimiter3" = Table.SplitColumn(#"Removed Columns3", "AMT_GOODS_PRICE", Splitter.SplitTextByEachDelimiter({"."}, QuoteStyle.Csv, true), {"AMT_GOODS_PRICE.1", "AMT_GOODS_PRICE.2"}),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Split Column by Delimiter3",{{"AMT_GOODS_PRICE.1", Currency.Type}}),
+				    #"Removed Columns4" = Table.RemoveColumns(#"Changed Type4",{"AMT_GOODS_PRICE.2"}),
+				    #"Changed Type5" = Table.TransformColumnTypes(#"Removed Columns4",{{"NAME_TYPE_SUITE", type text}, {"NAME_INCOME_TYPE", type text}, {"NAME_EDUCATION_TYPE", type text}, {"NAME_FAMILY_STATUS", type text}}),
+				    #"Changed Type6" = Table.TransformColumnTypes(#"Changed Type5",{{"NAME_TYPE_SUITE", type text}}),
+				    #"Removed Blank Rows" = Table.SelectRows(#"Changed Type6", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Removed Blank Rows1" = Table.SelectRows(#"Removed Blank Rows", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Removed Blank Rows1", {"AMT_GOODS_PRICE.1"}),
+				    #"Removed Blank Rows2" = Table.SelectRows(#"Removed Errors", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Replaced Value" = Table.ReplaceValue(#"Removed Blank Rows2",null,"Unaccompanied",Replacer.ReplaceValue,{"NAME_TYPE_SUITE"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value",null,0,Replacer.ReplaceValue,{"AMT_GOODS_PRICE.1"}),
+				    #"Changed Type7" = Table.TransformColumnTypes(#"Replaced Value1",{{"AMT_GOODS_PRICE.1", Currency.Type}, {"NAME_HOUSING_TYPE", type text}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type7", each true),
+				    #"Changed Type8" = Table.TransformColumnTypes(#"Filtered Rows",{{"TARGET", Int64.Type}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type8", "TARGET_BOOLEAN", each [TARGET]),
+				    #"Changed Type9" = Table.TransformColumnTypes(#"Added Custom",{{"TARGET_BOOLEAN", type logical}}),
+				    #"Added Custom1" = Table.AddColumn(#"Changed Type9", "TARGET NINARY", each [TARGET]),
+				    #"Changed Type10" = Table.TransformColumnTypes(#"Added Custom1",{{"TARGET NINARY", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type10",{{"TARGET NINARY", "TARGET BINARY"}, {"SK_ID_CURR", "Application Id"}, {"AMT_CREDIT.1", "Amount $ Credits"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

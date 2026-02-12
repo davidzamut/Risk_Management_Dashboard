@@ -1,0 +1,28 @@
+table 'Desired Exposure to default'
+	lineageTag: 1e9a5b15-cf81-44da-9031-23ad54c188c7
+
+	measure 'Desired Exposure to default Value' = SELECTEDVALUE('Desired Exposure to default'[Desired Exposure to default])
+		lineageTag: 027c9131-6bce-451a-89fc-8a3d3199d790
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Desired Exposure to default'
+		lineageTag: 5c4cf54d-5779-4ca3-b393-316e43405327
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Desired Exposure to default' = calculated
+		mode: import
+		source = GENERATESERIES(0, 1, 0.05)
+
+	annotation PBI_Id = 52e769295b3a46f2812f5ced3ce7ddf4
+

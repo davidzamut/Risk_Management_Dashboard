@@ -1,0 +1,28 @@
+table 'Desired Exposure Filter'
+	lineageTag: e79ad2c9-98ba-457b-9815-a48d881bd8b5
+
+	measure 'Desired Exposure Filter Value' = SELECTEDVALUE('Desired Exposure Filter'[Desired Exposure Filter])
+		lineageTag: f0381ba9-f24f-45c3-aa08-523e1e147aaa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Desired Exposure Filter'
+		lineageTag: 0ee15e44-25ed-4d91-a6ff-83e55ba28e12
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Desired Exposure Filter' = calculated
+		mode: import
+		source = GENERATESERIES(0, 1, 0.01)
+
+	annotation PBI_Id = e5c145f634324ac1b967c10921f0b097
+

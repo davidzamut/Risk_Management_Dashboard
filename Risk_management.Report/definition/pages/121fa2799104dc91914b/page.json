@@ -1,0 +1,202 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "121fa2799104dc91914b",
+  "displayName": "General Overview",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "100D"
+              }
+            }
+          },
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "ThemeDataColor": {
+                    "ColorId": 3,
+                    "Percent": 0
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspace": [
+      {
+        "properties": {
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "100D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "border": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          },
+          "borderColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "ThemeDataColor": {
+                    "ColorId": 2,
+                    "Percent": 0
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          },
+          "inputBoxColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "ThemeDataColor": {
+                    "ColorId": 2,
+                    "Percent": 0.2
+                  }
+                }
+              }
+            }
+          },
+          "backgroundColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "ThemeDataColor": {
+                    "ColorId": 2,
+                    "Percent": 0
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "type": "Tooltip",
+  "visualInteractions": [
+    {
+      "source": "2d8fc434768749718efd",
+      "target": "731ebb6e3d915bce4835",
+      "type": "DataFilter"
+    },
+    {
+      "source": "731ebb6e3d915bce4835",
+      "target": "9512a3a1c983eb609bca",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "9512a3a1c983eb609bca",
+      "target": "731ebb6e3d915bce4835",
+      "type": "DataFilter"
+    },
+    {
+      "source": "9512a3a1c983eb609bca",
+      "target": "2d8fc434768749718efd",
+      "type": "DataFilter"
+    },
+    {
+      "source": "2d8fc434768749718efd",
+      "target": "9512a3a1c983eb609bca",
+      "type": "DataFilter"
+    },
+    {
+      "source": "4f5ea36ff4c1ba8b55e7",
+      "target": "2d8fc434768749718efd",
+      "type": "NoFilter"
+    },
+    {
+      "source": "4f5ea36ff4c1ba8b55e7",
+      "target": "9512a3a1c983eb609bca",
+      "type": "NoFilter"
+    },
+    {
+      "source": "4f5ea36ff4c1ba8b55e7",
+      "target": "731ebb6e3d915bce4835",
+      "type": "NoFilter"
+    },
+    {
+      "source": "731ebb6e3d915bce4835",
+      "target": "1890f240c0ea64b26e46",
+      "type": "DataFilter"
+    },
+    {
+      "source": "731ebb6e3d915bce4835",
+      "target": "6dcb68e3345a192647a7",
+      "type": "DataFilter"
+    },
+    {
+      "source": "731ebb6e3d915bce4835",
+      "target": "0e978ca670d472abee3b",
+      "type": "DataFilter"
+    },
+    {
+      "source": "731ebb6e3d915bce4835",
+      "target": "8852dd459a256a5ff5c8",
+      "type": "DataFilter"
+    },
+    {
+      "source": "731ebb6e3d915bce4835",
+      "target": "a6c58f004b6949aee8b8",
+      "type": "DataFilter"
+    },
+    {
+      "source": "d2eb1775449a6ebaa0bd",
+      "target": "731ebb6e3d915bce4835",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d2eb1775449a6ebaa0bd",
+      "target": "6dcb68e3345a192647a7",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d2eb1775449a6ebaa0bd",
+      "target": "0e978ca670d472abee3b",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d2eb1775449a6ebaa0bd",
+      "target": "a6c58f004b6949aee8b8",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d2eb1775449a6ebaa0bd",
+      "target": "1890f240c0ea64b26e46",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d2eb1775449a6ebaa0bd",
+      "target": "8852dd459a256a5ff5c8",
+      "type": "NoFilter"
+    }
+  ]
+}
